@@ -1,5 +1,4 @@
 ﻿using System;
-static void Main()
-{
-    Console.WriteLine("Hello");
-}
+
+Maze maze = new Maze();
+maze.Visa();
