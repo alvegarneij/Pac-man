@@ -1,4 +1,15 @@
 ﻿using System;
 
 Maze maze = new Maze();
-maze.Visa();
+PacMan pacman = new PacMan();
+Movement movement = new Movement();
+
+while (true)
+{
+    Console.Clear();
+
+    maze.Visa(pacman);
+    pacman.VisaPosition();
+
+    movement.LäsTangent(pacman, maze);
+}
