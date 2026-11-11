@@ -33,7 +33,7 @@ class Maze
 
 
 
-    public void Visa(PacMan pacman)
+    public void Visa(PacMan pacman, Ghost ghost, Ghost secondGhost, Ghost thirdGhost)
     {
         Console.WriteLine($"Rader: {tiles.Length}");
         Console.WriteLine($"Kolumner: {tiles[0].Length}");
@@ -52,6 +52,21 @@ class Maze
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write(pacman.ÄndraSymbol() + " ");
+                }
+                else if (ghost.FinnsSpöke(row, col))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("♟ ");
+                }
+                else if (secondGhost.FinnsSpöke(row, col))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("♟ ");
+                }
+                else if (thirdGhost.FinnsSpöke(row, col))
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("♟ ");
                 }
                 else if (tiles[row][col] == 'W')
                 {
