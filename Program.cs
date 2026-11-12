@@ -22,8 +22,9 @@ while (true)
     }
 
     ghost.Patrullera(maze);
+    pacman.AngeMålFör(secondGhost, maze);
 
-    if (ghost.KrockarMed(pacman))
+    if (ghost.KrockarMed(pacman) || (secondGhost.KrockarMed(pacman)) || (thirdGhost.KrockarMed(pacman)))
     {
         break;
     }
