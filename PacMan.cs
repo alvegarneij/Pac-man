@@ -56,4 +56,31 @@ class PacMan
             _ => "ᗧ"
         };
     }
+
+    public void AngeMålFör(Ghost ghost, Maze maze)
+    {
+        int rowChange = 0;
+        int colChange = 0;
+
+        switch (riktning)
+        {
+            case "Upp":
+                rowChange -=1;
+                break;
+            case "Ner":
+                rowChange += 1;
+                break;
+            case "Vänster":
+                colChange -=1;
+                break;
+            case "Höger":
+                colChange += 1;
+                break;
+        }
+
+        int targetRow = row + rowChange * 2;
+        int targetCol = col + colChange * 2;
+
+        ghost.FöljSpelare(targetRow, targetCol, maze, this);
+    }
 }
