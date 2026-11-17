@@ -13,11 +13,11 @@ class Maze
         "WPWWWPWPWWWWWPWPWWWPW",
         "WPPPPPWPPPWPPPWPPPPPW",
         "WWWWWPWWWPWPWWWPWWWWW",
-        "WWWWWPWPPPPPPPW PWWWW",
+        "WWWWWPWPPPPPPPW WWWWW",
         "WWWWWPWPWW WWPWPWWWWW",
         "PPPPPPPPW   WPPPPPPPP",
         "WWWWWPWPWWWWWPWPWWWWW",
-        "WWWWWPWPPPPPPPW PWWWW",
+        "WWWWWPWPPPPPPPW WWWWW",
         "WWWWWPWWWPWPWWWPWWWWW",
         "WPPPPPWPPPWPPPWPPPPPW",
         "WPWWWPWPWWWWWPWPWWWPW",
@@ -35,15 +35,6 @@ class Maze
 
     public void Visa(PacMan pacman, Ghost ghost, Ghost secondGhost, Ghost thirdGhost)
     {
-        Console.WriteLine($"Rader: {tiles.Length}");
-        Console.WriteLine($"Kolumner: {tiles[0].Length}");
-
-        for (int row = 0; row < tiles.Length; row++)
-        {
-            Console.WriteLine($"Rad {row}: {tiles[row].Length} kolumner");
-        }
-
-
         for (int row = 0; row < tiles.Length; row++) //row = rad
         {
             for (int col = 0; col < tiles[row].Length; col++) //col = kolumn

@@ -12,7 +12,7 @@ while (true)
     Console.Clear();
 
     maze.Visa(pacman,ghost, secondGhost, thirdGhost);
-    pacman.VisaPosition();
+    // pacman.VisaPosition();
 
     movement.LäsTangent(pacman, maze);
 
@@ -28,5 +28,7 @@ while (true)
     {
         break;
     }
+
+    Thread.Sleep(400);
 }
 Console.WriteLine("Spöket fångade Pac-Man! Game over.");
