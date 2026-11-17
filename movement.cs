@@ -2,6 +2,11 @@ class Movement
 {
     public void LäsTangent(PacMan pacman, Maze maze)
     {
+        if (!Console.KeyAvailable)
+        {
+            return;
+        }
+
         ConsoleKey key = Console.ReadKey(true).Key;
 
         switch (key)

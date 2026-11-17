@@ -4,10 +4,10 @@ class PacMan
     int col = 10;
     string riktning = "Höger";
 
-    public void VisaPosition()
-    {
-        Console.WriteLine($"Pac-Man är på rad {row}, kolumn {col}");
-    }
+    // public void VisaPosition()
+    // {
+    //     Console.WriteLine($"Pac-Man är på rad {row}, kolumn {col}");
+    // }
 
     public bool FinnsPacMan(int row, int col)
     {
@@ -18,6 +18,15 @@ class PacMan
     {
         int newRow = row + rowChange;
         int newCol = col + colChange;
+
+        if (newRow == 10 && newCol < 0)
+        {
+            newCol = 20;
+        }
+        else if (newRow == 10 && newCol > 20)
+        {
+            newCol = 0;
+        }
 
         if (maze.KanGå(newRow, newCol))
         {
