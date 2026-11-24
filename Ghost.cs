@@ -1,10 +1,7 @@
-using System.Data;
-
 class Ghost
 {
     private int row;
     private int col;
-    private int direction = 0;
     private int previousRow = -1;
     private int previousCol = -1;
     private int startRow;
@@ -44,7 +41,7 @@ class Ghost
             col = startCol;
             previousRow = -1;
             previousCol = -1;
-            direction = 0;
+            movement.Återställ();
             return false;
         }
 
@@ -57,125 +54,39 @@ class Ghost
         col = startCol;
         previousRow = -1;
         previousCol = -1;
-        direction = 0;
+        movement.Återställ();
     }
 
-    public void Patrullera(Maze maze)
+    public bool FörsökFlytta(int rowChange, int colChange, Maze maze)
     {
-        for (int attempt = 0; attempt < 4; attempt++)
-        {
-            (int rowChange, int colChange) = direction switch
-            {
-                0 => (-1, 0), // Upp
-                1 => (0, 1),  // Höger
-                2 => (1, 0),  // Ner
-                _ => (0, -1)  // Vänster
-            };
+        int nextRow = row + rowChange;
+        int nextCol = col + colChange;
 
-            int nextRow = row + rowChange;
-            int nextCol = col + colChange;
-            if (maze.KanGå(nextRow, nextCol))
-            {
-                row = nextRow;
-                col = nextCol;
-                return;
-            }
-
-            direction = (direction + 1) % 4;
-        }
-    }   
-
-    public void FöljSpelare(int targetRow, int targetCol, Maze maze, PacMan pacMan)
-    {
-        if (row < targetRow)
-        {
-            if (maze.KanGå(row + 1, col) && (!(row + 1 == previousRow && col == previousCol) || pacMan.FinnsPacMan(row + 1, col)))
-            {
-                previousRow = row;
-                previousCol = col;
-                row++;
-                return;
-            }
-        }
-
-        if (row > targetRow)
-        {
-            if (maze.KanGå(row - 1, col) && (!(row - 1 == previousRow && col == previousCol) || pacMan.FinnsPacMan(row - 1, col)))
-            {
-                previousRow = row;
-                previousCol = col;
-                row--;
-                return;
-            }
-        }
-
-        if (col < targetCol)
-        {
-            if (maze.KanGå(row, col + 1) && (!(row == previousRow && col + 1 == previousCol) || pacMan.FinnsPacMan(row, col + 1)))
-            {
-                previousRow = row;
-                previousCol = col;
-                col++;
-                return;
-            }
-        }
-
-        if (col > targetCol)
-        {
-            if (maze.KanGå(row, col - 1) && (!(row == previousRow && col - 1 == previousCol) || pacMan.FinnsPacMan(row, col - 1)))
-            {
-                previousRow = row;
-                previousCol = col;
-                col--;
-                return;
-            }
-        }
-
-        if (maze.KanGå(row - 1, col) && (!(row - 1 == previousRow && col == previousCol) || pacMan.FinnsPacMan(row - 1, col)))
+        if (maze.KanGå(nextRow, nextCol))
         {
             previousRow = row;
             previousCol = col;
-            row--;
-            return;
+
+            row = nextRow;
+            col = nextCol;
+            return true;
         }
 
-        if (maze.KanGå(row, col - 1) && (!(row == previousRow && col - 1 == previousCol) || pacMan.FinnsPacMan(row, col - 1)))
-        {
-            previousRow = row;
-            previousCol = col;
-            col--;
-            return;
-        }
-
-        if (maze.KanGå(row + 1, col) && (!(row + 1 == previousRow && col == previousCol) || pacMan.FinnsPacMan(row + 1, col)))
-        {
-            previousRow = row;
-            previousCol = col;
-            row++;
-            return;
-        }
-
-        if (maze.KanGå(row, col + 1) && (!(row == previousRow && col + 1 == previousCol) || pacMan.FinnsPacMan(row, col + 1)))
-        {
-            previousRow = row;
-            previousCol = col;
-            col++;
-            return;
-        }
-
-        if (maze.KanGå(previousRow, previousCol))
-        {
-            int oldRow = row;
-            int oldCol = col;
-
-            row = previousRow;
-            col = previousCol;
-
-            previousRow = oldRow;
-            previousCol = oldCol;
-            return;
-        }
+        return false;
     }
 
+    public (int rowChange, int colChange) RiktningMot(int targetRow, int targetCol)
+    {
+        return (Math.Sign(targetRow - row), Math.Sign(targetCol - col));
+    }
 
+    public bool ÄrFöregåendePosition(int rowChange, int colChange)
+    {
+        return row + rowChange == previousRow && col + colChange == previousCol;
+    }
+
+    public bool ÄrPacManPåNästaRuta(int rowChange, int colChange, PacMan pacman)
+    {
+        return pacman.FinnsPacMan(row + rowChange, col + colChange);
+    }
 }

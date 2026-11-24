@@ -8,11 +8,6 @@ class PacMan
     private int powerUpTid = 10;
     private HighscoreRäknare räknare; 
 
-    // public void VisaPosition()
-    // {
-    //     Console.WriteLine($"Pac-Man är på rad {row}, kolumn {col}");
-    // }
-
     public PacMan(HighscoreRäknare räknare)
     {
         this.räknare = räknare;
@@ -75,7 +70,7 @@ class PacMan
         };
     }
 
-    public void AngeMålFör(Ghost ghost, Maze maze, int avstånd)
+    public (int targetRow, int targetCol) BeräknaMål(int avstånd)
     {
         int rowChange = 0;
         int colChange = 0;
@@ -99,7 +94,7 @@ class PacMan
         int targetRow = row + rowChange * avstånd;
         int targetCol = col + colChange * avstånd;
 
-        ghost.FöljSpelare(targetRow, targetCol, maze, this);
+        return (targetRow, targetCol);
     }
 
     public void ÖkaPoäng(int antal)
@@ -120,6 +115,7 @@ class PacMan
     public void VisaPoäng()
     {
         Console.WriteLine($"Poäng: {poäng}");
+        räknare.VisaHighscore(poäng);
     }
 
     public void ÅterställPosition()

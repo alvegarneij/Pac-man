@@ -24,6 +24,7 @@ while (true)
     Console.SetCursorPosition(0, 0);
 
     maze.Visa(pacman, ghost, secondGhost, thirdGhost);
+    Console.WriteLine($"Nivå: {nivå}");
 
     movement.LäsTangent(pacman, maze);
 

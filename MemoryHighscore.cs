@@ -11,4 +11,9 @@ class MemoryHighscore : IHighscore
 
         return rekord;
     }
+
+    public int HämtaRekord()
+    {
+        return rekord;
+    }
 }

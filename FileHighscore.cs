@@ -17,4 +17,18 @@ class FileHighscore : IHighscore
         }
         return rekord;
     }
+
+    public int HämtaRekord()
+{
+    int rekord = 0;
+
+    if (File.Exists(filnamn))
+    {
+        int.TryParse(File.ReadAllText(filnamn), out rekord);
+    }
+
+    return rekord;
+}
+
+
 }
