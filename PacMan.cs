@@ -97,6 +97,35 @@ class PacMan
         ghost.FöljSpelare(targetRow, targetCol, maze, this);
     }
 
+   
+public void AngeMålFörTredjeSpöke(Ghost ghost, Maze maze)
+{
+    int rowChange = 0;
+    int colChange = 0;
+
+    switch (riktning)
+    {
+        case "Upp":
+            rowChange = -1;
+            break;
+        case "Ner":
+            rowChange = 1;
+            break;
+        case "Vänster":
+            colChange = -1;
+            break;
+        case "Höger":
+            colChange = 1;
+            break;
+    }
+
+    int targetRow = row + rowChange * 4;
+    int targetCol = col + colChange * 4;
+
+    ghost.FöljSpelare(targetRow, targetCol, maze, this);
+}
+
+
     public void ÖkaPoäng(int antal)
     {
         poäng += antal;

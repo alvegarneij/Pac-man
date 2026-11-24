@@ -32,6 +32,7 @@ while (true)
     {
         ghost.Patrullera(maze);
         pacman.AngeMålFör(secondGhost, maze);
+        pacman.AngeMålFörTredjeSpöke(thirdGhost, maze);
         spökTimer.Restart();
     }
 
