@@ -32,10 +32,13 @@ class Maze
     private IPellet normalPellet;
     private IPellet powerPellet;
 
+    
+
     public Maze(IPellet normalPellet, IPellet powerPellet)
     {
         this.normalPellet = normalPellet;
         this.powerPellet = powerPellet;
+         
     }
 
 
@@ -123,4 +126,27 @@ class Maze
             powerPellet.Ät(pacman);
         }
     }
+
+    public bool AllaPelletsÄtna()
+    {
+        for (int row = 0; row < tiles.Length; row++)
+        {
+            for (int col = 0; col < tiles[row].Length; col++)
+            {
+                if ((tiles[row][col] == 'P' || tiles[row][col] == 'B') && !ätnaPellets[row, col])
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public void ÅterställPellets()
+    {
+        ätnaPellets = new bool[21, 21];
+        
+    }
+
 }

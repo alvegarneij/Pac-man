@@ -5,6 +5,8 @@ class PacMan
     string riktning = "Höger";
     private int poäng = 0;
     private DateTime powerUpSlut;
+    private int powerUpTid = 10;
+   // private HighscoreRäknare räknare; 
 
     // public void VisaPosition()
     // {
@@ -102,7 +104,7 @@ class PacMan
 
     public void AktiveraPowerUp()
     {
-        powerUpSlut = DateTime.Now.AddSeconds(10);
+        powerUpSlut = DateTime.Now.AddSeconds(powerUpTid);
     }
 
     public bool ÄrPowerUpAktiv()
@@ -113,5 +115,21 @@ class PacMan
     public void VisaPoäng()
     {
         Console.WriteLine($"Poäng: {poäng}");
+    }
+
+    public void ÅterställPosition()
+    {
+        row = 16;
+        col = 10;
+        riktning = "Höger";
+        powerUpSlut = DateTime.MinValue;
+    }
+
+    public void FörkortaPowerUp()
+    {
+        if (powerUpTid > 6)
+        {
+            powerUpTid--;
+        }
     }
 }

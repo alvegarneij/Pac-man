@@ -44,6 +44,15 @@ class Ghost
         return true;
     }
 
+    public void ÅterställPosition()
+    {
+        row = startRow;
+        col = startCol;
+        previousRow = -1;
+        previousCol = -1;
+        direction = 0;
+    }
+
     public void Patrullera(Maze maze)
     {
         for (int attempt = 0; attempt < 4; attempt++)
