@@ -1,9 +1,30 @@
 ﻿using System;
 using System.Diagnostics;
 
-Maze maze = new Maze(new NormalPellet(), new PowerPellet());
-IHighscore highscore = new FileHighscore();
+Console.WriteLine("Välj spelläge:");
+Console.WriteLine("1. Träningsläge");
+Console.WriteLine("2. Tävlingsläge");
+
+string? val = Console.ReadLine();
+
+while (val != "1" && val != "2")
+{
+    Console.WriteLine("Ogiltigt val. Välj 1 eller 2.");
+    val = Console.ReadLine();
+}
+IHighscore highscore;
+
+if (val == "1")
+{
+    highscore = new MemoryHighscore();
+}
+else
+{
+    highscore = new FileHighscore();
+}
 HighscoreRäknare räknare = new HighscoreRäknare(highscore);
+Maze maze = new Maze(new NormalPellet(), new PowerPellet());
+
 PacMan pacman = new PacMan(räknare);
 
 Movement movement = new Movement();
@@ -54,6 +75,7 @@ while (true)
         secondGhost.ÅterställPosition();
         thirdGhost.ÅterställPosition();
         pacman.FörkortaPowerUp();
+
 
         if (fördröjning > 200)
         {
