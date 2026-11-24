@@ -23,8 +23,10 @@ else
     highscore = new FileHighscore();
 }
 HighscoreRäknare räknare = new HighscoreRäknare(highscore);
+bool spelaIgen = true;
+while (spelaIgen)
+{
 Maze maze = new Maze(new NormalPellet(), new PowerPellet());
-
 PacMan pacman = new PacMan(räknare);
 
 Movement movement = new Movement();
@@ -88,3 +90,8 @@ while (true)
 
 Console.WriteLine("Spöket fångade Pac-Man! Game over.");
 pacman.RegistreraHighscore();
+Console.CursorVisible = true;
+Console.WriteLine("Vill du spela igen? (j/n)");
+string? svar = Console.ReadLine();
+spelaIgen = svar == "j";
+}

@@ -1,3 +1,11 @@
+//FALL #3
+//VAD: Subtypsplymorfism och beroendeinjektion.
+//HUR: FileHighscore eller MemoryHighscore injiceras
+//Genom: konstruktorn via interfacet Ihighscore.
+//VARFÖR: HighscoreRäknare kan hentera både tillfälliga
+//och permanenta rekord utan att dess kod behöver ändras.
+
+
 class HighscoreRäknare
 {
     private IHighscore highscore;
