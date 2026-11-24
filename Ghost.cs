@@ -9,18 +9,25 @@ class Ghost
     private int previousCol = -1;
     private int startRow;
     private int startCol;
+    private IGhostMovement movement;
 
-    public Ghost(int row, int col)
+    public Ghost(int row, int col, IGhostMovement movement)
     {
         this.row = row;
         this.col = col;
         startRow = row;
         startCol = col;
+        this.movement = movement;
     }
 
     public bool FinnsSpöke(int row, int col)
     {
         return this.row == row && this.col == col;
+    }
+
+    public void Flytta(Maze maze, PacMan pacman)
+    {
+        movement.Flytta(this, maze, pacman);
     }
 
     public bool HanteraKollision(PacMan pacman)

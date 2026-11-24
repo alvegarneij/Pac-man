@@ -2,11 +2,15 @@
 using System.Diagnostics;
 
 Maze maze = new Maze(new NormalPellet(), new PowerPellet());
-PacMan pacman = new PacMan();
+IHighscore highscore = new FileHighscore();
+HighscoreRäknare räknare = new HighscoreRäknare(highscore);
+PacMan pacman = new PacMan(räknare);
+
+
 Movement movement = new Movement();
-Ghost ghost = new Ghost(10, 10);
-Ghost secondGhost = new Ghost(10, 11);
-Ghost thirdGhost = new Ghost(10, 9);
+Ghost ghost = new Ghost(10, 10, new PatrolMovement());
+Ghost secondGhost = new Ghost(10, 11, new ChaseMovement(2));
+Ghost thirdGhost = new Ghost(10, 9, new ChaseMovement(4));
 
 int nivå = 1;
 int fördröjning = 400;
@@ -30,9 +34,9 @@ while (true)
 
     if (spökTimer.ElapsedMilliseconds >= fördröjning)
     {
-        ghost.Patrullera(maze);
-        pacman.AngeMålFör(secondGhost, maze);
-        pacman.AngeMålFörTredjeSpöke(thirdGhost, maze);
+        ghost.Flytta(maze, pacman);
+        secondGhost.Flytta(maze, pacman);
+        thirdGhost.Flytta(maze, pacman);
         spökTimer.Restart();
     }
 

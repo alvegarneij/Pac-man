@@ -6,12 +6,17 @@ class PacMan
     private int poäng = 0;
     private DateTime powerUpSlut;
     private int powerUpTid = 10;
-   // private HighscoreRäknare räknare; 
+    private HighscoreRäknare räknare; 
 
     // public void VisaPosition()
     // {
     //     Console.WriteLine($"Pac-Man är på rad {row}, kolumn {col}");
     // }
+
+    public PacMan(HighscoreRäknare räknare)
+    {
+        this.räknare = räknare;
+    }
 
     public bool FinnsPacMan(int row, int col)
     {
@@ -70,7 +75,7 @@ class PacMan
         };
     }
 
-    public void AngeMålFör(Ghost ghost, Maze maze)
+    public void AngeMålFör(Ghost ghost, Maze maze, int avstånd)
     {
         int rowChange = 0;
         int colChange = 0;
@@ -91,40 +96,11 @@ class PacMan
                 break;
         }
 
-        int targetRow = row + rowChange * 2;
-        int targetCol = col + colChange * 2;
+        int targetRow = row + rowChange * avstånd;
+        int targetCol = col + colChange * avstånd;
 
         ghost.FöljSpelare(targetRow, targetCol, maze, this);
     }
-
-   
-public void AngeMålFörTredjeSpöke(Ghost ghost, Maze maze)
-{
-    int rowChange = 0;
-    int colChange = 0;
-
-    switch (riktning)
-    {
-        case "Upp":
-            rowChange = -1;
-            break;
-        case "Ner":
-            rowChange = 1;
-            break;
-        case "Vänster":
-            colChange = -1;
-            break;
-        case "Höger":
-            colChange = 1;
-            break;
-    }
-
-    int targetRow = row + rowChange * 4;
-    int targetCol = col + colChange * 4;
-
-    ghost.FöljSpelare(targetRow, targetCol, maze, this);
-}
-
 
     public void ÖkaPoäng(int antal)
     {
@@ -160,5 +136,10 @@ public void AngeMålFörTredjeSpöke(Ghost ghost, Maze maze)
         {
             powerUpTid--;
         }
+    }
+
+    public void RegistreraHighscore()
+    {
+        räknare.RegistreraPoäng(poäng);
     }
 }
