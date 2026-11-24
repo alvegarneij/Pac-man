@@ -6,7 +6,7 @@ class Maze
     string[] tiles =
     {
         "WWWWWWWWWWWWWWWWWWWWW",
-        "WPPPPPPPPPWPPPPPPPPPW",
+        "WBPPPPPPPPWPPPPPPPPBW",
         "WPWWWPWWWPWPWWWPWWWPW",
         "WPWWWPWWWPWPWWWPWWWPW",
         "WPPPPPPPPPPPPPPPPPPPW",
@@ -24,12 +24,19 @@ class Maze
         "WPPPPPPPPPPPPPPPPPPPW",
         "WPWWWPWWWPWPWWWPWWWPW",
         "WPWWWPWWWPWPWWWPWWWPW",
-        "WPPPPPPPPPWPPPPPPPPPW",
+        "WBPPPPPPPPWPPPPPPPPBW",
         "WWWWWWWWWWWWWWWWWWWWW"
     };
 
     bool[,] ätnaPellets = new bool[21, 21];
-    int poäng = 0;
+    private IPellet normalPellet;
+    private IPellet powerPellet;
+
+    public Maze(IPellet normalPellet, IPellet powerPellet)
+    {
+        this.normalPellet = normalPellet;
+        this.powerPellet = powerPellet;
+    }
 
 
 
@@ -46,17 +53,17 @@ class Maze
                 }
                 else if (ghost.FinnsSpöke(row, col))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = pacman.ÄrPowerUpAktiv() ? ConsoleColor.Blue : ConsoleColor.Red;
                     Console.Write("♟ ");
                 }
                 else if (secondGhost.FinnsSpöke(row, col))
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = pacman.ÄrPowerUpAktiv() ? ConsoleColor.Blue : ConsoleColor.Green;
                     Console.Write("♟ ");
                 }
                 else if (thirdGhost.FinnsSpöke(row, col))
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = pacman.ÄrPowerUpAktiv() ? ConsoleColor.Blue : ConsoleColor.White;
                     Console.Write("♟ ");
                 }
                 else if (tiles[row][col] == 'W')
@@ -69,6 +76,11 @@ class Maze
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("· ");
                 }
+                else if (tiles[row][col] == 'B' && !ätnaPellets[row, col])
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write("● ");
+                }
                 else
                 {
                     Console.Write("  ");
@@ -80,7 +92,7 @@ class Maze
         }
         
         Console.ResetColor();
-        Console.WriteLine($"Poäng: {poäng}");
+        pacman.VisaPoäng();
     }
 
     public bool KanGå(int row, int col)
@@ -98,12 +110,17 @@ class Maze
         return tiles[row][col] != 'W';
     }
 
-    public void ÄtPellet(int row, int col)
+    public void ÄtPellet(int row, int col, PacMan pacman)
     {
         if (tiles[row][col] == 'P' && !ätnaPellets[row, col])
         {
             ätnaPellets[row, col] = true;
-            poäng++;
+            normalPellet.Ät(pacman);
+        }
+        else if (tiles[row][col] == 'B' && !ätnaPellets[row, col])
+        {
+            ätnaPellets[row, col] = true;
+            powerPellet.Ät(pacman);
         }
     }
 }

@@ -7,20 +7,41 @@ class Ghost
     private int direction = 0;
     private int previousRow = -1;
     private int previousCol = -1;
+    private int startRow;
+    private int startCol;
 
     public Ghost(int row, int col)
     {
         this.row = row;
         this.col = col;
+        startRow = row;
+        startCol = col;
     }
 
     public bool FinnsSpöke(int row, int col)
     {
         return this.row == row && this.col == col;
     }
-    public bool KrockarMed(PacMan pacman)
+
+    public bool HanteraKollision(PacMan pacman)
     {
-        return pacman.FinnsPacMan(row, col);
+        if (!pacman.FinnsPacMan(row, col))
+        {
+            return false;
+        }
+
+        if (pacman.ÄrPowerUpAktiv())
+        {
+            pacman.ÖkaPoäng(20);
+            row = startRow;
+            col = startCol;
+            previousRow = -1;
+            previousCol = -1;
+            direction = 0;
+            return false;
+        }
+
+        return true;
     }
 
     public void Patrullera(Maze maze)
@@ -139,4 +160,6 @@ class Ghost
             return;
         }
     }
+
+
 }

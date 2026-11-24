@@ -1,6 +1,6 @@
 ﻿using System;
 
-Maze maze = new Maze();
+Maze maze = new Maze(new NormalPellet(), new PowerPellet());
 PacMan pacman = new PacMan();
 Movement movement = new Movement();
 Ghost ghost = new Ghost(10, 10);
@@ -16,15 +16,7 @@ while (true)
 
     movement.LäsTangent(pacman, maze);
 
-    if (ghost.KrockarMed(pacman) || (secondGhost.KrockarMed(pacman)) || (thirdGhost.KrockarMed(pacman)))
-    {
-        break;
-    }
-
-    ghost.Patrullera(maze);
-    pacman.AngeMålFör(secondGhost, maze);
-
-    if (ghost.KrockarMed(pacman) || (secondGhost.KrockarMed(pacman)) || (thirdGhost.KrockarMed(pacman)))
+    if (ghost.HanteraKollision(pacman) || secondGhost.HanteraKollision(pacman) || thirdGhost.HanteraKollision(pacman))
     {
         break;
     }

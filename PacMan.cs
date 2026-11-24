@@ -3,6 +3,8 @@ class PacMan
     int row = 16;
     int col = 10;
     string riktning = "Höger";
+    private int poäng = 0;
+    private DateTime powerUpSlut;
 
     // public void VisaPosition()
     // {
@@ -32,7 +34,7 @@ class PacMan
         {
             row = newRow;
             col = newCol;
-            maze.ÄtPellet(row,col);
+            maze.ÄtPellet(row,col, this);
 
             if (colChange == 1)
             {
@@ -91,5 +93,25 @@ class PacMan
         int targetCol = col + colChange * 2;
 
         ghost.FöljSpelare(targetRow, targetCol, maze, this);
+    }
+
+    public void ÖkaPoäng(int antal)
+    {
+        poäng += antal;
+    }
+
+    public void AktiveraPowerUp()
+    {
+        powerUpSlut = DateTime.Now.AddSeconds(10);
+    }
+
+    public bool ÄrPowerUpAktiv()
+    {
+        return DateTime.Now < powerUpSlut;
+    }
+
+    public void VisaPoäng()
+    {
+        Console.WriteLine($"Poäng: {poäng}");
     }
 }
