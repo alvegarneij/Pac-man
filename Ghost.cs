@@ -2,8 +2,6 @@ class Ghost
 {
     private int row;
     private int col;
-    private int previousRow = -1;
-    private int previousCol = -1;
     private int startRow;
     private int startCol;
     private IGhostMovement movement;
@@ -39,8 +37,6 @@ class Ghost
             pacman.ÖkaPoäng(20);
             row = startRow;
             col = startCol;
-            previousRow = -1;
-            previousCol = -1;
             movement.Återställ();
             return false;
         }
@@ -52,8 +48,6 @@ class Ghost
     {
         row = startRow;
         col = startCol;
-        previousRow = -1;
-        previousCol = -1;
         movement.Återställ();
     }
 
@@ -64,9 +58,6 @@ class Ghost
 
         if (maze.KanGå(nextRow, nextCol))
         {
-            previousRow = row;
-            previousCol = col;
-
             row = nextRow;
             col = nextCol;
             return true;
@@ -78,11 +69,6 @@ class Ghost
     public (int rowChange, int colChange) RiktningMot(int targetRow, int targetCol)
     {
         return (Math.Sign(targetRow - row), Math.Sign(targetCol - col));
-    }
-
-    public bool ÄrFöregåendePosition(int rowChange, int colChange)
-    {
-        return row + rowChange == previousRow && col + colChange == previousCol;
     }
 
     public bool ÄrPacManPåNästaRuta(int rowChange, int colChange, PacMan pacman)

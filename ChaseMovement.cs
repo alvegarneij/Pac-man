@@ -1,6 +1,8 @@
 class ChaseMovement : IGhostMovement
 {
     private int avstånd;
+    private int previousRowChange = 0;
+    private int previousColChange = 0;
 
     public ChaseMovement(int avstånd)
     {
@@ -29,28 +31,32 @@ class ChaseMovement : IGhostMovement
                 continue;
             }
 
-            if (!ghost.ÄrFöregåendePosition(r, c) || ghost.ÄrPacManPåNästaRuta(r, c, pacman))
+            bool gårTillbaka = r == -previousRowChange && c == -previousColChange;
+
+            if (!gårTillbaka || ghost.ÄrPacManPåNästaRuta(r, c, pacman))
             {
                 if (ghost.FörsökFlytta(r, c, maze))
                 {
+                    previousRowChange = r;
+                    previousColChange = c;
                     return;
                 }
             }
         }
 
-        foreach (var (r, c) in riktningar)
+        if (previousRowChange != 0 || previousColChange != 0)
         {
-            if (ghost.ÄrFöregåendePosition(r, c) && (r != 0 || c != 0))
+            if (ghost.FörsökFlytta(-previousRowChange, -previousColChange, maze))
             {
-                if (ghost.FörsökFlytta(r, c, maze))
-                {
-                    return;
-                }
+                previousRowChange = -previousRowChange;
+                previousColChange = -previousColChange;
             }
         }
     }
 
     public void Återställ()
     {
+        previousRowChange = 0;
+        previousColChange = 0;
     }
 }

@@ -6,7 +6,6 @@ IHighscore highscore = new FileHighscore();
 HighscoreRäknare räknare = new HighscoreRäknare(highscore);
 PacMan pacman = new PacMan(räknare);
 
-
 Movement movement = new Movement();
 Ghost ghost = new Ghost(10, 10, new PatrolMovement());
 Ghost secondGhost = new Ghost(10, 11, new ChaseMovement(2));
@@ -66,3 +65,4 @@ while (true)
 }
 
 Console.WriteLine("Spöket fångade Pac-Man! Game over.");
+pacman.RegistreraHighscore();
