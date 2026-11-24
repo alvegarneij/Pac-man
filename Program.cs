@@ -48,6 +48,18 @@ while (true)
     maze.Visa(pacman, ghost, secondGhost, thirdGhost);
     Console.WriteLine($"Nivå: {nivå}");
 
+
+if (pacman.ÄrPowerUpAktiv())
+{
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine("POWER-UP AKTIV! Ät spökena!");
+    Console.ResetColor();
+}
+else
+{
+    Console.WriteLine(new string(' ', 30));
+}
+
     movement.LäsTangent(pacman, maze);
 
     if (ghost.HanteraKollision(pacman) || secondGhost.HanteraKollision(pacman) || thirdGhost.HanteraKollision(pacman))
