@@ -1,6 +1,3 @@
-using System.Data;
-using System.Formats.Asn1;
-
 class Maze
 {
     string[] tiles =
@@ -32,22 +29,17 @@ class Maze
     private IPellet normalPellet;
     private IPellet powerPellet;
 
-    
-
     public Maze(IPellet normalPellet, IPellet powerPellet)
     {
         this.normalPellet = normalPellet;
         this.powerPellet = powerPellet;
-         
     }
-
-
 
     public void Visa(PacMan pacman, Ghost ghost, Ghost secondGhost, Ghost thirdGhost)
     {
-        for (int row = 0; row < tiles.Length; row++) //row = rad
+        for (int row = 0; row < tiles.Length; row++)
         {
-            for (int col = 0; col < tiles[row].Length; col++) //col = kolumn
+            for (int col = 0; col < tiles[row].Length; col++)
             {
                 if (pacman.FinnsPacMan(row, col))
                 {
@@ -88,12 +80,11 @@ class Maze
                 {
                     Console.Write("  ");
                 }
-                
             }
 
             Console.WriteLine();
         }
-        
+
         Console.ResetColor();
         pacman.VisaPoäng();
     }
@@ -146,7 +137,5 @@ class Maze
     public void ÅterställPellets()
     {
         ätnaPellets = new bool[21, 21];
-        
     }
-
 }

@@ -6,6 +6,12 @@ class Ghost
     private int startCol;
     private IGhostMovement movement;
 
+    // FALL #2:
+    // VAD: Subtypspolymorfism och dependency injection.
+    // HUR: Ett IGhostMovement-objekt injuceras via konstruktorn.
+    // VARFÖR: Ghost kan använda olika rörelsealgoritmer utan att
+    // känna till deras konkreta impletationer.
+    
     public Ghost(int row, int col, IGhostMovement movement)
     {
         this.row = row;
