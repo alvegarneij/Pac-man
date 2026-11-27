@@ -1,15 +1,15 @@
-//FALL #3
-//VAD: Subtypsplymorfism och beroendeinjektion.
-//HUR: FileHighscore eller MemoryHighscore injiceras
-//Genom: konstruktorn via interfacet Ihighscore.
-//VARFÖR: HighscoreRäknare kan hentera både tillfälliga
-//och permanenta rekord utan att dess kod behöver ändras.
-
-
 class HighscoreRäknare
 {
     private IHighscore highscore;
-    private int rekord; 
+    private int rekord;
+
+    // FALL #2:
+    // VAD: Subtypspolymorfism och beroendeinjektion.
+    // HUR: GameMode väljer MemoryHighscore eller FileHighscore. Game skickar
+    // in det valda objektet via konstruktorn som IHighscore.
+    // HighscoreRäknare använder objektet för att hämta och registrera rekord.
+    // VARFÖR: Samma räknare kan hantera rekord som sparas i minnet under
+    // träningsläget eller i en fil som finns kvar mellan programstarter.
 
     public HighscoreRäknare(IHighscore highscore)
     {
