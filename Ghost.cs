@@ -6,11 +6,13 @@ class Ghost
     private int startCol;
     private IGhostMovement movement;
 
-    // FALL #2:
-    // VAD: Subtypspolymorfism och dependency injection.
-    // HUR: Ett IGhostMovement-objekt injuceras via konstruktorn.
-    // VARFÖR: Ghost kan använda olika rörelsealgoritmer utan att
-    // känna till deras konkreta impletationer.
+    // FALL #1:
+    // VAD: Subtypspolymorfism och beroendeinjektion.
+    // HUR: Character skickar in PatrolMovement eller ChaseMovement via
+    // konstruktorn. Ghost använder IGhostMovement för att anropa Flytta.
+    // Patrullen provar riktningar i ordning, medan jakten beräknar ett mål
+    // utifrån Pac-Mans position och rörelseriktning.
+    // VARFÖR: Ghost kan använda nya rörelsealgoritmer utan att ändras.
     
     public Ghost(int row, int col, IGhostMovement movement)
     {
